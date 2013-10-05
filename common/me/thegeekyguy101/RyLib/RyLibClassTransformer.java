@@ -10,7 +10,7 @@ public class RyLibClassTransformer implements net.minecraft.launchwrapper.IClass
 	@Override
 	public byte[] transform(String arg0, String arg1, byte[] arg2) {
 		if (arg0.equals("bhb") || arg0.equals("net.minecraft.client.renderer.entity.RendererLivingEntity")) {
-			System.out.println("********* INSIDE ENTITYRENDERERLIVING TRANSFORMER ABOUT TO PATCH: " + arg0);
+			System.out.println("********* INSIDE RenderLivingEntity TRANSFORMER ABOUT TO PATCH: " + arg0);
 		arg2 = patchClassInJar(arg0, arg2, arg0, RyLibFMLLoadingPlugin.location);
 		}
 		return arg2;
