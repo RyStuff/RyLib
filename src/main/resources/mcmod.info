@@ -1,0 +1,16 @@
+[
+{
+  "modid": "rylib",
+  "name": "RyLib",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["TheGeekyGuy101"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
