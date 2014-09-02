@@ -29,7 +29,7 @@ libsDirName = '../target'
 
 minecraft
 {
-    version = "1.7.10-10.13.0.1180"
+    version = "1.7.10-10.13.0.1208"
     if (file('../run').exists())
     {
         assetDir = "../run/assets"
@@ -57,5 +57,13 @@ processResources
     from(sourceSets.main.resources.srcDirs)
     {
         exclude 'mcmod.info'
+    }
+
+    jar
+    {
+        manifest
+        {
+            attributes 'FMLAT': 'rylib_at.cfg'
+        }
     }
 }

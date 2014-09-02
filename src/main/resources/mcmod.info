@@ -2,7 +2,7 @@
 {
   "modid": "rylib",
   "name": "RyLib",
-  "description": "",
+  "description": "A Minecraft Mod Library",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
