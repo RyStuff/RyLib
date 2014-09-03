@@ -1,14 +1,18 @@
 package net.rystuff.rylib.entity;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.stats.StatBase;
+import net.minecraft.world.World;
+import net.rystuff.rylib.common.LogHelper;
 import net.rystuff.rylib.stats.CustomStatList;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CustomEntityList {
+public class CustomEntityList
+{
     public static Map<String, Class> stringToClassMapping = new HashMap<String, Class>();
 
     public static Map<Class, String> classToStringMapping = new HashMap<Class, String>();
@@ -19,9 +23,13 @@ public class CustomEntityList {
 
     public static Map<String, Integer> stringToIDMapping = new HashMap<String, Integer>();
 
+    public static Map<Integer, CreativeTabs> IDtoTabMapping = new HashMap<Integer, CreativeTabs>();
+
+    public static Map<CreativeTabs, Integer> TabtoIDMapping = new HashMap<CreativeTabs, Integer>();
+
     public static HashMap<Integer, EntityEggInfo> entityEggs = new LinkedHashMap<Integer, EntityEggInfo>();
 
-    public static void addMapping(Class entityClass, String entityName, int id)
+    public static void addMapping(Class entityClass, String entityName, int id, CreativeTabs tab, int background, int inner)
     {
         if (stringToClassMapping.containsKey(entityName))
         {
@@ -38,13 +46,36 @@ public class CustomEntityList {
             IDtoClassMapping.put(id, entityClass);
             classToIDMapping.put(entityClass, id);
             stringToIDMapping.put(entityName, id);
+            IDtoTabMapping.put(id, tab);
+            TabtoIDMapping.put(tab, id);
         }
+        entityEggs.put(id, new CustomEntityList.EntityEggInfo(id, background, inner));
     }
 
-    public static void addMapping(Class entityClass, String entityName, int id, int background, int inner)
+    public static Entity createEntityByID(int id, World world) {
+        Entity entity; entity = null;
+
+        try
+        {
+            Class<?> entityClass = getClassFromID(id);
+            if (entityClass != null)
+            {
+                entity = (Entity)entityClass.getConstructor(new Class<?>[]{World.class}).newInstance(world);
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        if (entity == null)
+        {
+            LogHelper.warn("Skipping Entity with id " + id);
+        }
+        return entity;
+    }
+
+    public static CreativeTabs getCreativeTab(int id)
     {
-        addMapping(entityClass, entityName, id);
-        entityEggs.put(id, new CustomEntityList.EntityEggInfo(id, background, inner));
+        return IDtoTabMapping.get(id);
     }
 
     public static int getEntityID(Entity entity)
