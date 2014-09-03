@@ -96,8 +96,8 @@ public class CustomEntityList
 
     public static String getStringFromID(int id)
     {
-        Class entityclass = getClassFromID(id);
-        return entityclass != null ? classToStringMapping.get(entityclass) : null;
+        Class entityClass = getClassFromID(id);
+        return entityClass != null ? classToStringMapping.get(entityClass) : null;
     }
 
     static {}
